@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أكلة غير شكل!</title>
+
+  <!-- Better Arabic font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Tajawal", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 490px;
+      background: white;
+      border-radius: 24px;
+      padding: 30px 22px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #d35400;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 28px;
+      font-size: 1.35rem;
+    }
+
+    .result-box {
+      background: #fff5ee;
+      border: 2px dashed #ff9f68;
+      border-radius: 18px;
+      padding: 35px 15px;
+      margin-bottom: 25px;
+      min-height: 120px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #foodResult {
+      font-size: 2.2rem;
+      color: #c0392b;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      background: linear-gradient(135deg, #ff7e5f, #ff512f);
+      color: white;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 6px 18px rgba(255, 81, 47, 0.35);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      #foodResult {
+        font-size: 1.8rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>شو بدنا ناكل اليوم مامي؟ 🍽️</h1>
+    <p class="subtitle">كبسي الزر وخلي القدر يخترلنا أكلة 😋</p>
+
+    <div class="result-box">
+      <div id="foodResult"></div>
+    </div>
+
+    <button onclick="chooseFood()">
+      نقي واستحلي
+    </button>
+  </div>
+
+  <script>
+    const foods = [
+      "رز عدجاج",
+      "رز علحمة",
+      "دجاج وبطاطا بالصينية (مع دجاج محمّر)",
+      "بزيلا",
+      "فاهيتا",
+      "رز بخلطة",
+      "فصوليا عريضة",
+      "فصوليا زغيري",
+      "كوسى وورق عريش بحامض",
+      "مجدرة",
+      "صيادية",
+      "سمك مقلي او مشوي مع بطاطا وزهري وبتنجان مقلي وتبولة",
+      "بامية",
+      "رز بشيش طاووق",
+      "كوسى ببندورة وبتنجان",
+      "كفتة بالصينية",
+      "كفتة وبطاطا ورز",
+      "كوسى بلبن",
+      "كبة بلبن وشوشبرك",
+      "يخنة بندورة ورز",
+      "ورق عريش بزيت",
+      "ملفوف",
+      "اسكالوب وبطاطا مقلية",
+      "كرسبي وبطاطا مقلية",
+      "نغتس وبطاطا مقلية",
+      "كبسة",
+      "لزانيا",
+      "معكرونة ببشاميل",
+      "معكرونة بلحمة",
+      "معكرونة بخضرا",
+      "بفتاك وبطاطا مقلية",
+      "معقودة",
+      "برغر لحمة",
+      "برغر دجاج",
+      "رز بفول",
+      "مخلوطة",
+      "مدردرة وخيار ولبن",
+      "لوبية ورز",
+      "كبة بالصينية",
+      "كبة مدورة وتبولة",
+      "كفتة بطحيني",
+      "ستروغونوف",
+      "برغل بحمص ولبن",
+      "مغربية",
+      "مشاوي شيش طاووق وكفتة ولحمة",
+      "شاورما دجاج او لحمة",
+      "كوسى ابلمة ورز",
+      "بطاطا سوفليه ولحمة مفرومة",
+      "ملوخية ورز",
+      "مسقعة",
+      "داوود باشا",
+      "فطاير بلحمة",
+      "شيش طاووق وبطاطا مقلية"
+    ];
+
+    function chooseFood() {
+      const result = document.getElementById("foodResult");
+
+      result.style.transform = "scale(0.8)";
+      result.style.opacity = "0.3";
+
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * foods.length);
+        result.textContent = foods[randomIndex];
+
+        result.style.transform = "scale(1)";
+        result.style.opacity = "1";
+      }, 250);
+    }
+  </script>
+
+</body>
+</html>
